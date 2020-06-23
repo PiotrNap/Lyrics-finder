@@ -32,7 +32,7 @@
       <div class="after-result-header" id="resultHeaderAfter">
         <h3>Search Result</h3>
       </div>
-      <div class="sub-section--inner" id="result">
+      <div class="sub-section--inner" id="results">
         <ul class="list" id="list">
           <li class="list-item no-results" id="no-results">
             Nothing to show yet.
@@ -47,16 +47,23 @@
         <div class="song-text">
           <p></p>
         </div>
-        <div class="nav-btn-section" id="nav-buttons">
-          <div class="nav-inner">
-            <button class="previous-btn" id="previous-btn">
-              Previous Page
-            </button>
-            <button class="next-btn" id="next-btn">Next Page</button>
-          </div>
-          <h2 class="loading">Loading...</h2>
-        </div>
       </div>
+      <div class="nav-btn-section" id="nav-buttons">
+        <div class="nav-inner">
+          <button class="previous-btn" id="previous-btn">
+            Previous Page
+          </button>
+          <button class="next-btn" id="next-btn">Next Page</button>
+        </div>
+        <h2 class="loading">Loading...</h2>
+      </div>
+      <button
+        class="back-btn"
+        id="back-btn"
+        onclick="window.location.reload();"
+      >
+        Go Back
+      </button>
     </section>
   </body>
   <script src="app.js"></script>

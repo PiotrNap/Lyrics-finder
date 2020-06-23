@@ -175,10 +175,21 @@ input[type='submit'] {
   margin-left: 5px;
 }
 
-.next-btn:hover {
-  background-color: rgb(235, 235, 235);
+.back-btn {
+  font-size: 13px;
+  font-weight: 600;
+  border: 2px solid black;
+  color: black;
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 9999px;
+  transition: background-color 0.1s ease-in-out;
+  margin-left: 5px;
+  display: none;
 }
 
+.next-btn:hover,
+.back-btn:hover,
 .previous-btn:hover {
   background-color: rgb(235, 235, 235);
 }

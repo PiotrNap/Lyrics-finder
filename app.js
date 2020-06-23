@@ -6,10 +6,11 @@ const form = document.getElementById('form'),
   resultHeaderAfter = document.getElementById('resultHeaderAfter'),
   nextIndex = document.getElementById('next-btn'),
   previousIndex = document.getElementById('previous-btn'),
+  back = document.getElementById('back-btn'),
   noResults = document.getElementById('no-results'),
+  results = document.getElementById('results'),
   lyrics = document.getElementById('lyrics'),
   nav = document.getElementById('nav-buttons'),
-  result = document.getElementById('result'),
   loading = document.querySelector('.loading');
 
 var searchValue = '';
@@ -32,12 +33,12 @@ submit.addEventListener('click', () => {
 
 nextIndex.addEventListener('click', () => {
   var next = true;
-  fetchNextPage(next);
+  fetchPageIndex(next);
 });
 
 previousIndex.addEventListener('click', () => {
   var next = false;
-  fetchNextPage(next);
+  fetchPageIndex(next);
 });
 
 // fetch results based on input value
@@ -66,7 +67,7 @@ function showResults() {
         <p class="list-item--text">
             <span class="artist">${artist.name}</span> - ${title}
         </p>
-        <button class="list-item--btn" onClick="showLyrics(${song.artist.name},${song.title})" 
+        <button class="list-item--btn"
         data-artist="${artist.name}" data-title="${title}">Get the Lyrics</button>
     </li>`
     )
@@ -74,17 +75,14 @@ function showResults() {
 }
 
 // get button listener for lyrics
-async function getButton() {
-  result.addEventListener('click', (e) => {
-    const elem = e.target;
-    if (elem.tagName === 'BUTTON') {
-      const artist = elem.getAtttribute('data-artist');
-      const title = elem.getAtttribute('data-title');
-
-      showLyrics(artist, title);
-    }
-  });
-}
+results.addEventListener('click', (e) => {
+  const elem = e.target;
+  if (elem.tagName === 'BUTTON') {
+    const artist = elem.getAttribute('data-artist');
+    const title = elem.getAttribute('data-title');
+    showLyrics(artist, title);
+  }
+});
 
 // display the lyrics
 async function showLyrics(artist, title) {
@@ -102,10 +100,12 @@ async function showLyrics(artist, title) {
         </div>
       `;
   }
+  nav.style.display = 'none';
+  back.style.display = 'block';
 }
 
 // get page index +15/-15
-async function fetchNextPage(next) {
+async function fetchPageIndex(next) {
   var newURL = next === true ? nextIndexPage : previousIndexPage;
   loading.style.display = 'block';
 
@@ -131,12 +131,13 @@ async function fetchNextPage(next) {
 
     list.innerHTML = newData.data
       .map(
-        (song) =>
+        ({ artist, title }) =>
           `<li class="list-item">
         <p class="list-item--text">
-            <span class="artist">${song.artist.name}</span> - ${song.title}
+            <span class="artist">${artist.name}</span> - ${title}
         </p>
-        <button class="list-item--btn" onClick="showLyrics(${song.artist.name},${song.title})" data-artist="${artist.name}" data-title="${title}>Get the Lyrics</button>
+        <button class="list-item--btn"
+        data-artist="${artist.name}" data-title="${title}">Get the Lyrics</button>
     </li>`
       )
       .join('');
